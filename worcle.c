@@ -78,7 +78,10 @@ int main() {
 
     char guess[100];
 
-    printf("Guess the word! You have %d attempts.\n", MAX_ATTEMPTS);
+    printf("Guess the %d letter word! You have %d attempts.\n", WORD_LEN, MAX_ATTEMPTS);
+
+    char wordAnnounce[18 + WORD_LEN + 1];
+    snprintf(wordAnnounce, sizeof(wordAnnounce), "The word was \"%s\".\n", target);
 
     for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
         printf("Attempt %d/%d: ", attempt, MAX_ATTEMPTS);
@@ -95,11 +98,11 @@ int main() {
         printf("%s\n", getFeedback(guess, target));
 
         if (strcmp(guess, target) == 0) {
-            printf("\nCongrats! The word was \"%s\".\n", target);
+            printf("\nCongrats! %s\n", wordAnnounce);
             return 0;
         }
     }
 
-    printf("\nGame over! The word was \"%s\".\n", target);
+    printf("\nGame over! %s\n", wordAnnounce);
     return 0;
 }
