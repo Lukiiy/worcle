@@ -7,8 +7,8 @@
 #define WORD_LEN 5
 #define MAX_ATTEMPTS 6
 
-const char *word_list[] = { "apple", "grape", "chair", "table", "brick", "stone", "light", "plant", "river", "cloud" };
-const int WORD_COUNT = sizeof(word_list) / sizeof(word_list[0]);
+const char *WORD_LIST[] = { "apple", "grape", "chair", "table", "brick", "stone", "light", "plant", "river", "cloud", "adieu" };
+const int WORD_COUNT = sizeof(WORD_LIST) / sizeof(WORD_LIST[0]);
 
 void String_toLower(char *s) {
     for (int i = 0; s[i]; i++) s[i] = tolower(s[i]);
@@ -40,7 +40,7 @@ char *getFeedback(const char *guess, const char *target) {
         }
     }
 
-    for (int i = 0; i < WORD_LEN; i++) { // Build output string
+    for (int i = 0; i < WORD_LEN; i++) {
         if (result[i] == 2) {
             output[pos++] = '[';
             output[pos++] = toupper(guess[i]);
@@ -74,8 +74,7 @@ int isValidGuess(const char *guess) {
 int main() {
     srand(time(NULL));
 
-    const char *target = word_list[rand() % WORD_COUNT];
-
+    const char *target = WORD_LIST[rand() % WORD_COUNT];
     char guess[100];
 
     printf("Guess the %d letter word! You have %d attempts.\n", WORD_LEN, MAX_ATTEMPTS);
@@ -86,7 +85,6 @@ int main() {
     for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
         printf("Attempt %d/%d: ", attempt, MAX_ATTEMPTS);
         scanf("%99s", guess);
-
         String_toLower(guess);
 
         if (!isValidGuess(guess)) {
